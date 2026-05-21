@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayAndTimeManager</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div class="min-h-screen p-4 md:p-8">
+    <header class="max-w-6xl mx-auto mb-8">
+      <div class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+        <h1 class="text-3xl font-semibold">PayAndTimeManager</h1>
+        <p class="mt-2 text-slate-600">Local payroll, time tracking and payslip generation for South African domestic workers.</p>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto space-y-6">
+      <section class="grid gap-6 xl:grid-cols-3">
+        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+          <h2 class="text-xl font-semibold mb-4">Add new worker</h2>
+          <form id="worker-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Name</label>
+              <input id="worker-name" class="input-field" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Role</label>
+              <input id="worker-role" class="input-field" value="Domestic worker">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Hourly rate (ZAR)</label>
+              <input id="worker-rate" type="number" min="0" step="0.01" class="input-field" value="28.79">
+            </div>
+            <button type="submit" class="btn-primary w-full">Save worker</button>
+          </form>
+        </article>
+
+        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200 xl:col-span-2">
+          <h2 class="text-xl font-semibold mb-4">Workers</h2>
+          <div id="worker-list" class="space-y-3"></div>
+        </article>
+      </section>
+
+      <section class="grid gap-6 xl:grid-cols-2">
+        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+          <h2 class="text-xl font-semibold mb-4">Time entry</h2>
+          <form id="time-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Worker</label>
+              <select id="time-worker" class="input-field"></select>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-3">
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Date</label>
+                <input id="time-date" type="date" class="input-field" required>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Start</label>
+                <input id="time-start" type="time" class="input-field" required>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">End</label>
+                <input id="time-end" type="time" class="input-field" required>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Notes</label>
+              <input id="time-notes" class="input-field">
+            </div>
+            <button type="submit" class="btn-primary w-full">Record hours</button>
+          </form>
+        </article>
+
+        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+          <h2 class="text-xl font-semibold mb-4">Deductions</h2>
+          <form id="deduction-form" class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Worker</label>
+              <select id="deduction-worker" class="input-field"></select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Description</label>
+              <input id="deduction-description" class="input-field" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Amount</label>
+              <input id="deduction-amount" type="number" min="0" step="0.01" class="input-field" required>
+            </div>
+            <button type="submit" class="btn-primary w-full">Save deduction</button>
+          </form>
+        </article>
+      </section>
+
+      <section class="grid gap-6 xl:grid-cols-2">
+        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold">Payslips</h2>
+            <button id="refresh-button" class="btn-secondary">Refresh</button>
+          </div>
+          <form id="payslip-form" class="mt-4 space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700">Period</label>
+              <input id="payslip-period" type="month" class="input-field" value="">
+            </div>
+            <button type="submit" class="btn-primary w-full">Generate payslips</button>
+          </form>
+        </article>
+
+        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+          <h2 class="text-xl font-semibold mb-4">Recent entries</h2>
+          <div id="recent-entries" class="space-y-3"></div>
+        </article>
+      </section>
+
+      <section class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
+        <h2 class="text-xl font-semibold mb-4">Payslip preview</h2>
+        <div id="payslip-preview" class="space-y-4"></div>
+      </section>
+    </main>
+  </div>
+  <script src="app.js" defer></script>
+</body>
+</html>
