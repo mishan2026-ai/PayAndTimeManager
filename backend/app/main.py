@@ -90,15 +90,27 @@ def list_time_entries(worker_id: Optional[str] = None):
 
 @app.post("/api/time-entries", response_model=TimeEntry)
 def create_time_entry(payload: TimeEntryCreate):
+    print("DEBUG: create_time_entry: Fetching workers")
     workers = get_collection("workers")
+    print(f"DEBUG: create_time_entry: Workers fetched, count: {len(workers)}")
+    print(f"DEBUG: create_time_entry: Checking worker ID {payload.worker_id}")
     if not any(worker["id"] == payload.worker_id for worker in workers):
         raise HTTPException(status_code=404, detail="Worker not found")
 
+    print(f"DEBUG: create_time_entry: Combining date and time. Date: {payload.date}, Start: {payload.start_time}, End: {payload.end_time}")
+    print(f"DEBUG: create_time_entry: Combining date and time. Date: {payload.date}, Start: {payload.start_time}, End: {payload.end_time}")
     start = datetime.combine(payload.date, payload.start_time)
+
     end = datetime.combine(payload.date, payload.end_time)
+    print(f"DEBUG: create_time_entry: Start datetime: {start}, End datetime: {end}")
+    print(f"DEBUG: create_time_entry: Start datetime: {start}, End datetime: {end}")
     if end <= start:
+        print("DEBUG: create_time_entry: End time is not after start time")
+        print("DEBUG: create_time_entry: End time is not after start time")
         raise HTTPException(status_code=400, detail="End time must be after start time")
     hours = round((end - start).seconds / 3600, 2)
+    print(f"DEBUG: create_time_entry: Calculated hours: {hours}")
+    print(f"DEBUG: create_time_entry: Calculated hours: {hours}")
     entry = TimeEntry(
         id=str(uuid4()),
         worker_id=payload.worker_id,
@@ -108,9 +120,19 @@ def create_time_entry(payload: TimeEntryCreate):
         notes=payload.notes,
         hours=hours,
     )
+    print(f"DEBUG: create_time_entry: Created TimeEntry object: {entry.model_dump()}")
+    print(f"DEBUG: create_time_entry: Created TimeEntry object: {entry.model_dump()}")
+    print("DEBUG: create_time_entry: Fetching existing time entries")
     entries = get_collection("time_entries")
+    print(f"DEBUG: create_time_entry: Existing time entries count: {len(entries)}")
     entries.append(entry.model_dump())
+    print("DEBUG: create_time_entry: Appended new entry")
+    print("DEBUG: create_time_entry: Appended new entry")
     update_collection("time_entries", entries)
+    print("DEBUG: create_time_entry: Updated time entries collection")
+    print("DEBUG: create_time_entry: Updated time entries collection")
+    print("DEBUG: create_time_entry: Returning new entry")
+    print("DEBUG: create_time_entry: Returning new entry")
     return entry
 
 @app.get("/api/deductions", response_model=List[Deduction])
@@ -142,11 +164,17 @@ def generate_payslips(month: Optional[str] = Query(None, regex=r"^\d{4}-\d{2}$")
 
     for worker_data in workers:
         worker = Worker(**worker_data)
+        print(f"DEBUG: Worker {worker.name} (ID: {worker.id})")
         worker_entries = [TimeEntry(**entry) for entry in time_entries if entry["worker_id"] == worker.id]
         worker_entries = [entry for entry in worker_entries if entry.date.strftime("%Y-%m") == period]
+        for entry in worker_entries:
+            print(f"  DEBUG: Time Entry - Date: {entry.date}, Hours: {entry.hours}")
         worker_deductions = [Deduction(**ded) for ded in deductions if ded["worker_id"] == worker.id]
+        print(f"  DEBUG: All entries for {worker.name}: {[entry.hours for entry in worker_entries]}")
         total_hours = sum(entry.hours for entry in worker_entries)
+        print(f"  DEBUG: Total hours for {worker.name}: {total_hours}")
         overtime = max(0.0, total_hours - 45.0)
+        print(f"  DEBUG: Overtime calculated for {worker.name}: {overtime})")
         gross = round(total_hours * worker.hourly_rate, 2)
         uif = round(gross * UIF_RATE, 2)
         deduction_total = round(sum(d.amount for d in worker_deductions), 2)

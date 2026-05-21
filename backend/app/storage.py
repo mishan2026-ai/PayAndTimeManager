@@ -78,8 +78,15 @@ def update_collection(name: str, items: list) -> None:
 
     with _lock, sqlite3.connect(DB_FILE) as conn:
         conn.execute("PRAGMA foreign_keys = ON")
+        print(f"DEBUG: storage: Deleting all entries from {name}")
         conn.execute(f"DELETE FROM {name}")
-        conn.executemany(
-            query,
-            [[normalize_value(item[col]) for col in columns] for item in items],
-        )
+        try:
+            conn.executemany(
+                query,
+                [[normalize_value(item[col]) for col in columns] for item in items],
+            )
+            print(f"DEBUG: storage: Inserted {len(items)} entries into {name}")
+        except sqlite3.IntegrityError as e:
+            print(f"ERROR: storage: Integrity error when inserting into {name}: {e}")
+            raise
+
