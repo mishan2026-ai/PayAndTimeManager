@@ -44,68 +44,92 @@
       </section>
 
       <section class="grid gap-6 xl:grid-cols-2">
-        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
-          <h2 class="text-xl font-semibold mb-4">Time entry</h2>
-          <form id="time-form" class="space-y-4">
+        <article class="rounded-3xl bg-white shadow-sm border border-slate-200">
+          <div class="section-header">
             <div>
-              <label class="block text-sm font-medium text-slate-700">Worker</label>
-              <select id="time-worker" class="input-field"></select>
+              <h2 class="text-xl font-semibold">Record hours</h2>
+              <p class="text-sm text-slate-600">Quickly log daily time for your workers.</p>
             </div>
-            <div class="grid gap-4 sm:grid-cols-3">
+            <button type="button" class="btn-secondary section-toggle" data-target="time-panel">Toggle</button>
+          </div>
+          <div id="time-panel" class="section-body p-6">
+            <form id="time-form" class="space-y-4">
               <div>
-                <label class="block text-sm font-medium text-slate-700">Date</label>
-                <input id="time-date" type="date" class="input-field" required>
+                <label class="block text-sm font-medium text-slate-700">Worker</label>
+                <select id="time-worker" class="input-field"></select>
+              </div>
+              <div class="grid gap-4 sm:grid-cols-3">
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">Date</label>
+                  <input id="time-date" type="date" class="input-field" required>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">Start</label>
+                  <input id="time-start" type="time" class="input-field" required>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-slate-700">End</label>
+                  <input id="time-end" type="time" class="input-field" required>
+                </div>
               </div>
               <div>
-                <label class="block text-sm font-medium text-slate-700">Start</label>
-                <input id="time-start" type="time" class="input-field" required>
+                <label class="block text-sm font-medium text-slate-700">Notes</label>
+                <input id="time-notes" class="input-field">
               </div>
-              <div>
-                <label class="block text-sm font-medium text-slate-700">End</label>
-                <input id="time-end" type="time" class="input-field" required>
-              </div>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Notes</label>
-              <input id="time-notes" class="input-field">
-            </div>
-            <button type="submit" class="btn-primary w-full">Record hours</button>
-          </form>
+              <button type="submit" class="btn-primary w-full">Record hours</button>
+            </form>
+          </div>
         </article>
 
-        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
-          <h2 class="text-xl font-semibold mb-4">Deductions</h2>
-          <form id="deduction-form" class="space-y-4">
+        <article class="rounded-3xl bg-white shadow-sm border border-slate-200">
+          <div class="section-header">
             <div>
-              <label class="block text-sm font-medium text-slate-700">Worker</label>
-              <select id="deduction-worker" class="input-field"></select>
+              <h2 class="text-xl font-semibold">Deductions</h2>
+              <p class="text-sm text-slate-600">Record advances, loan repayments, and other deductions.</p>
             </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Description</label>
-              <input id="deduction-description" class="input-field" required>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-slate-700">Amount</label>
-              <input id="deduction-amount" type="number" min="0" step="0.01" class="input-field" required>
-            </div>
-            <button type="submit" class="btn-primary w-full">Save deduction</button>
-          </form>
+            <button type="button" class="btn-secondary section-toggle" data-target="deduction-panel">Toggle</button>
+          </div>
+          <div id="deduction-panel" class="section-body p-6">
+            <form id="deduction-form" class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Worker</label>
+                <select id="deduction-worker" class="input-field"></select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Description</label>
+                <input id="deduction-description" class="input-field" required>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Amount</label>
+                <input id="deduction-amount" type="number" min="0" step="0.01" class="input-field" required>
+              </div>
+              <button type="submit" class="btn-primary w-full">Save deduction</button>
+            </form>
+          </div>
         </article>
       </section>
 
       <section class="grid gap-6 xl:grid-cols-2">
-        <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
-          <div class="flex items-center justify-between">
-            <h2 class="text-xl font-semibold">Payslips</h2>
-            <button id="refresh-button" class="btn-secondary">Refresh</button>
-          </div>
-          <form id="payslip-form" class="mt-4 space-y-4">
+        <article class="rounded-3xl bg-white shadow-sm border border-slate-200">
+          <div class="section-header">
             <div>
-              <label class="block text-sm font-medium text-slate-700">Period</label>
-              <input id="payslip-period" type="month" class="input-field" value="">
+              <h2 class="text-xl font-semibold">Payslips</h2>
+              <p class="text-sm text-slate-600">Build payslips and review payment summaries.</p>
             </div>
-            <button type="submit" class="btn-primary w-full">Generate payslips</button>
-          </form>
+            <button type="button" class="btn-secondary section-toggle" data-target="payslip-panel">Toggle</button>
+          </div>
+          <div id="payslip-panel" class="section-body p-6">
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <button id="refresh-button" class="btn-secondary">Refresh</button>
+            </div>
+            <form id="payslip-form" class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium text-slate-700">Period</label>
+                <input id="payslip-period" type="month" class="input-field" value="">
+              </div>
+              <button type="submit" class="btn-primary w-full">Generate payslips</button>
+            </form>
+          </div>
         </article>
 
         <article class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
@@ -114,9 +138,17 @@
         </article>
       </section>
 
-      <section class="rounded-3xl bg-white p-6 shadow-sm border border-slate-200">
-        <h2 class="text-xl font-semibold mb-4">Payslip preview</h2>
-        <div id="payslip-preview" class="space-y-4"></div>
+      <section class="rounded-3xl bg-white shadow-sm border border-slate-200">
+        <div class="section-header">
+          <div>
+            <h2 class="text-xl font-semibold">Payslip preview</h2>
+            <p class="text-sm text-slate-600">View the latest payslip summary and recent time entries.</p>
+          </div>
+          <button type="button" class="btn-secondary section-toggle" data-target="preview-panel">Toggle</button>
+        </div>
+        <div id="preview-panel" class="section-body p-6">
+          <div id="payslip-preview" class="space-y-4"></div>
+        </div>
       </section>
     </main>
   </div>

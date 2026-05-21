@@ -1,8 +1,9 @@
 from __future__ import annotations
+import datetime
 import sqlite3
 from pathlib import Path
 from threading import Lock
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 DATA_PATH = Path(__file__).resolve().parents[1] / "data"
 DB_FILE = DATA_PATH / "app.db"
@@ -49,6 +50,8 @@ def ensure_db() -> None:
 def normalize_value(value: Any) -> Any:
     if isinstance(value, bool):
         return int(value)
+    if isinstance(value, (datetime.date, datetime.time, datetime.datetime)):
+        return value.isoformat()
     return value
 
 

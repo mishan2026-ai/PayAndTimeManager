@@ -26,6 +26,26 @@ http://127.0.0.1:8000
 
 The app now stores data in a local SQLite database at `backend/data/app.db`.
 
+## Demo data
+
+Use curl to create a worker, record hours, then generate payslips.
+
+```powershell
+Set-Content -Path payload.json -Value '{"name":"Sally","role":"Gardener","hourly_rate":28.79}'
+curl.exe -i -X POST http://127.0.0.1:8000/api/workers -H "Content-Type: application/json" --data-binary "@payload.json"
+Remove-Item payload.json
+```
+
+```powershell
+Set-Content -Path payload.json -Value '{"worker_id":"<worker-id>","date":"2026-05-21","start_time":"08:00","end_time":"16:00","notes":"Demo shift"}'
+curl.exe -i -X POST http://127.0.0.1:8000/api/time-entries -H "Content-Type: application/json" --data-binary "@payload.json"
+Remove-Item payload.json
+```
+
+```powershell
+curl.exe http://127.0.0.1:8000/api/payslips
+```
+
 ## Backend API tests
 
 Check the worker list:

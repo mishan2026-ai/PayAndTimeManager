@@ -54,3 +54,19 @@
   background: #f8fafc;
   padding: 1rem;
 }
+
+.section-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem 1.5rem 0;
+}
+
+.section-body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.section-body.collapsed {
+  display: none;
+}

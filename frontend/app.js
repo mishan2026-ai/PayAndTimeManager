@@ -25,16 +25,15 @@ async function loadWorkers() {
     const card = document.createElement("div");
     card.className = "card-item";
     card.innerHTML = `
-      <div class="flex items-center justify-between gap-3">
+      <div class="flex items-start justify-between gap-3">
         <div>
           <p class="text-lg font-semibold">${worker.name}</p>
           <p class="text-sm text-slate-600">${worker.role}</p>
         </div>
-        <span class="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700">R${worker.hourly_rate.toFixed(2)}/hr</span>
-      </div>
-      <div class="mt-4 grid gap-2 sm:grid-cols-3">
-        <div class="text-sm text-slate-600">Leave accrued: ${worker.leave_accrued.toFixed(1)}d</div>
-        <div class="text-sm text-slate-600">Status: ${worker.active ? "Active" : "Inactive"}</div>
+        <div class="flex gap-2">
+          <span class="rounded-full bg-slate-100 px-3 py-1 text-sm text-slate-700">R${worker.hourly_rate.toFixed(2)}/hr</span>
+          <button type="button" class="btn-secondary" onclick="deleteWorker('${worker.id}')">Remove</button>
+        </div>
       </div>
     `;
     workerList.appendChild(card);
@@ -139,6 +138,20 @@ async function handleSubmit(event, url, data, resetForm = null) {
   }
 }
 
+function toggleSection(targetId) {
+  const panel = document.getElementById(targetId);
+  if (!panel) return;
+  panel.classList.toggle("collapsed");
+}
+
+async function deleteWorker(workerId) {
+  if (!confirm("Delete this worker?")) return;
+  await fetchJson(`/api/workers/${workerId}`, { method: "DELETE" });
+  await loadWorkers();
+  await loadRecentEntries();
+  await renderPayslips();
+}
+
 function resetWorkerForm() {
   document.getElementById("worker-name").value = "";
   document.getElementById("worker-role").value = "Domestic worker";
@@ -193,6 +206,10 @@ async function init() {
     await loadWorkers();
     await loadRecentEntries();
     await renderPayslips();
+  });
+
+  document.querySelectorAll(".section-toggle").forEach((button) => {
+    button.addEventListener("click", () => toggleSection(button.dataset.target));
   });
 
   document.getElementById("time-worker").addEventListener("change", loadRecentEntries);
