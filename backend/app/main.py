@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
 
-from app.schemas import (
+from .schemas import (
     Deduction,
     DeductionCreate,
     PayslipSummary,
@@ -19,7 +19,7 @@ from app.schemas import (
     WorkerCreate,
     WorkerUpdate,
 )
-from app.storage import get_collection, update_collection
+from .storage import get_collection, update_collection
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 FRONTEND_DIR = BASE_DIR / "frontend"

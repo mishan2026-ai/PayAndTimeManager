@@ -4,7 +4,7 @@ from pathlib import Path
 from threading import Lock
 from typing import Any, Dict
 
-DATA_PATH = Path(__file__).resolve().parents[1].parents[0] / "data"
+DATA_PATH = Path(__file__).resolve().parents[1] / "data"
 DB_FILE = DATA_PATH / "db.json"
 _lock = Lock()
 
