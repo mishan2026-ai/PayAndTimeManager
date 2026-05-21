@@ -22,6 +22,10 @@ Open the frontend in your browser:
 http://127.0.0.1:8000
 ```
 
+## Storage
+
+The app now stores data in a local SQLite database at `backend/data/app.db`.
+
 ## Backend API tests
 
 Check the worker list:
@@ -35,7 +39,7 @@ Create a test worker:
 ```powershell
 curl -X POST http://127.0.0.1:8000/api/workers ^
   -H "Content-Type: application/json" ^
-  -d "{\"name\":\"Test Worker\",\"role\":\"Gardener\",\"hourly_rate\":28.79}"
+  -d "{\"name\":\"Sam Serious\",\"role\":\"Gardener\",\"hourly_rate\":28.79}"
 ```
 
 Generate payslips:
