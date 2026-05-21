@@ -1,0 +1,47 @@
+1. **Title**: Contract Worker Pay & Time Manager
+2. **The One-Liner**: A South African labour-law-compliant payroll and time-tracking app for households employing domestic workers, gardeners, drivers, carers, and other contract workers.
+3. **Purpose**:
+   - Provide a simple, reliable tool for domestic employers to track time, pay, leave, deductions and payslips in line with South African labour regulations.
+   - Reduce manual calculation errors, improve record keeping, and support compliance with UIF, leave accrual, and overtime rules.
+4. **Target Users**:
+   - South African households employing one or more domestic or contract workers.
+   - Small-scale employers who need affordable, easy-to-use payroll tools without formal HR expertise.
+   - Employers who want mobile-friendly, exportable payslips and digital documentation for labour compliance.
+5. **Core Features**:
+   - Time Tracking
+     - Record daily clock-in and clock-out times per worker.
+     - Automatically compute daily hours, weekly totals, and monthly summaries.
+     - Allow manual adjustments for missing or corrected time entries.
+   - Overtime and Legal Compliance
+     - Flag overtime when a worker exceeds 9 hours in a single day or 45 hours in a single week for a 5-day workweek.
+     - Support alternative schedules and flexible work patterns while highlighting SA labour-law limits.
+   - Wage and Pay Calculation
+     - Calculate gross pay at month-end using configurable hourly rates per worker.
+     - Default hourly wage to the current South African minimum wage (R28.79/hr), with employer override.
+     - Include automatic UIF contribution calculations based on gross pay and current UIF rules.
+   - Leave Management
+     - Automatically accrue annual leave at 1 day per 17 days worked.
+     - Track sick leave and family responsibility leave separately.
+     - Display leave balances and usage history in worker summaries.
+   - Deductions and Loan Repayments
+     - Record recurring and one-time deductions, including salary advances, loan repayments, and other agreed amounts.
+     - Apply deductions automatically to the month-end payslip calculation.
+   - Payslip Generation and Export
+     - Generate a detailed payslip per worker, including hours worked, gross pay, UIF, deductions, net pay, and leave updates.
+     - Export or share payslips via email or WhatsApp-ready formats.
+6. **Business Rules**:
+   - Week definition may default to Monday–Sunday or be configurable based on employer needs.
+   - Overtime is computed when weekly or daily hours exceed legal thresholds; the app should surface warnings and suggested action.
+   - Leave accrual and entitlement should be visible per worker, with a record of carried-over or used leave where applicable.
+7. **Compliance and Reporting**:
+   - Support South African labour standards for domestic workers, including UIF and leave entitlement calculations.
+   - Maintain historical records for time, pay, leave, and deductions for audit and accountability.
+   - Enable employers to produce summaries for a calendar month or custom reporting period.
+8. **Non-Functional Requirements**:
+   - Easy-to-use interface suitable for non-technical household employers.
+   - Reliable data persistence so that worker records and payroll history are retained between sessions.
+   - Clear notifications for missing time entries, potential overtime, and upcoming leave.
+9. **Future Enhancement Ideas**:
+   - Add optional tax components, employee benefits, and annual reconciliation.
+   - Support multiple workers with grouped household summaries.
+   - Add mobile app notifications and integration with local banking/payment methods.
